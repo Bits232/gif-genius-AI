@@ -59,8 +59,8 @@ def search(request):
                     output.append(formatted)
                 
                 the_main_data = json.dumps(output, indent=2)
-                print("Qloo data processed successfully:")
-                print(the_main_data)
+                #print("Qloo data processed successfully:")
+                #print(the_main_data)
             else:
                 the_main_data = "[]"
                 print(f"Qloo API failed with status: {response.status_code}")
@@ -100,13 +100,14 @@ def search(request):
                 response_format={"type": "json_object"},
                 temperature=0.7
             )
-            print("Groq API call successful!")
+            print(the_main_data)
+            #print("Groq API call successful!")
             
             groq_content = groq_response.choices[0].message.content
-            print("Raw Groq response:", groq_content)
+            #print("Raw Groq response:", groq_content)
             
             recommendations = json.loads(groq_content)
-            print("Parsed recommendations:", recommendations)
+            #print("Parsed recommendations:", recommendations)
             
             # Prepare context
             context = {
@@ -114,7 +115,7 @@ def search(request):
                 'recommendations': recommendations.get('gifts', []),
                 'occasion': form_data['occasion']
             }
-            print("About to render result.html...")
+            #print("About to render result.html...")
             return render(request, 'result.html', context)
 
         except Exception as e:
