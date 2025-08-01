@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiftGenius AI | Perfect Gifts Powered by AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-purple: #9d4edd;
+            --neon-cyan: #00f5d4;
+            --dark-bg: #0f0f1a;
+            --card-bg: #1a1a2e;
+            --text-light: rgba(255, 255, 255, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-cyan));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(157, 78, 221, 0.3);
+        }
+
+        .features {
+            padding: 100px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            width: 350px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(157, 78, 221, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(157, 78, 221, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--neon-cyan);
+            background: none;
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: rgba(0, 245, 212, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .feature-desc {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .accent-line {
+            height: 3px;
+            width: 50px;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .feature-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>GiftGenius AI</h1>
+        <p class="tagline">The future of gifting is here. Discover perfect presents powered by cultural AI and machine learning.</p>
+        <a href="search/" class="cta-button">Start Finding Gifts</a>
+    </div>
+
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <div class="accent-line"></div>
+            <h3 class="feature-title">Precision Matching</h3>
+            <p class="feature-desc">Our AI analyzes cultural preferences, hobbies, and personality traits to suggest gifts they'll truly love.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <div class="accent-line"></div>
+            <h3 class="feature-title">Deep Insights</h3>
+            <p class="feature-desc">Powered by Qloo's cultural intelligence API to understand hidden connections between interests.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <div class="accent-line"></div>
+            <h3 class="feature-title">Instant Checkout</h3>
+            <p class="feature-desc">Find, customize, and purchase unique gifts without leaving the app. Delivery tracking included.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <div class="accent-line"></div>
+            <h3 class="feature-title">AI Personalization</h3>
+            <p class="feature-desc">Groq's lightning-fast LLM tailors recommendations based on the latest trends and your input.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🎁</div>
+            <div class="accent-line"></div>
+            <h3 class="feature-title">Gift Wrapping</h3>
+            <p class="feature-desc">Premium wrapping options with handwritten notes. Because presentation matters as much as the gift.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔐</div>
+            <div class="accent-line"></div>
+            <h3 class="feature-title">Privacy First</h3>
+            <p class="feature-desc">No personal data collection. We use cultural patterns, not invasive tracking.</p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth card appearance on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.feature-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = 1;
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

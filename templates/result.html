@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Gift Recommendations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-purple: #9d4edd;
+            --neon-cyan: #00f5d4;
+            --dark-bg: #0f0f1a;
+            --card-bg: #1a1a2e;
+            --text-light: rgba(255, 255, 255, 0.9);
+            --border: rgba(157, 78, 221, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .occasion-banner {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gift-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(157, 78, 221, 0.3);
+        }
+
+        .gift-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .gift-content {
+            padding: 1.5rem;
+        }
+
+        .gift-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--neon-cyan);
+        }
+
+        .gift-price {
+            font-weight: 700;
+            color: var(--neon-purple);
+            margin-bottom: 1rem;
+        }
+
+        .gift-description {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .gift-reason {
+            background: rgba(157, 78, 221, 0.1);
+            border-left: 3px solid var(--neon-purple);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4);
+        }
+
+        .checkout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid var(--neon-purple);
+        }
+
+        .close-modal {
+            float: right;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">GiftGenius AI</h1>
+            <div class="occasion-banner">
+                Perfect gifts for {{ user_info.name }}'s {{ occasion }}
+            </div>
+        </header>
+
+        <div class="results-grid">
+            {% for gift in recommendations %}
+            <div class="gift-card">
+                <img src="{{ gift.image_url|default:'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400' }}" 
+                     alt="{{ gift.gift_name }}" class="gift-image">
+                <div class="gift-content">
+                    <h3 class="gift-name">{{ gift.gift_name }}</h3>
+                    <div class="gift-price">{{ gift.price_range }}</div>
+                    <p class="gift-description">{{ gift.description }}</p>
+                    <div class="gift-reason">
+                        <strong>Why it's perfect:</strong> {{ gift.reason }}
+                    </div>
+                    <button class="btn purchase-btn" 
+                            data-gift="{{ gift.gift_name }}"
+                            data-price="{{ gift.price_range }}">
+                        Purchase Now
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2 id="modalTitle">Complete Your Purchase</h2>
+            <div id="modalContent">
+                <p>Order processing for: <span id="modalGiftName"></span></p>
+                <p>Price: <span id="modalPrice"></span></p>
+                
+                <form id="checkoutForm" style="margin-top: 2rem;">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem;">Card Number</label>
+                        <input type="text" placeholder="4242 4242 4242 4242" 
+                               style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: white;">
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem;">Expiry</label>
+                            <input type="text" placeholder="MM/YY" 
+                                   style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: white;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem;">CVC</label>
+                            <input type="text" placeholder="123" 
+                                   style="width: 100%; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: white;">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">
+                        Complete Purchase
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Purchase button functionality
+        document.querySelectorAll('.purchase-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const giftName = this.getAttribute('data-gift');
+                const price = this.getAttribute('data-price');
+                
+                document.getElementById('modalGiftName').textContent = giftName;
+                document.getElementById('modalPrice').textContent = price;
+                document.getElementById('checkoutModal').style.display = 'flex';
+            });
+        });
+
+        // Close modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        });
+
+        // Form submission
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Order placed successfully!');
+            document.getElementById('checkoutModal').style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === document.getElementById('checkoutModal')) {
+                document.getElementById('checkoutModal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
